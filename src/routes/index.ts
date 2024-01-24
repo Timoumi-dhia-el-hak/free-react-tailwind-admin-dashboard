@@ -9,8 +9,21 @@ const Settings = lazy(() => import('../pages/Settings'));
 const Tables = lazy(() => import('../pages/Tables'));
 const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
+const ECommerce= lazy(() => import('../pages/Dashboard/ECommerce'));
+const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
+
 
 const coreRoutes = [
+    {
+    path: '/DefaultLayout',
+    title: 'DefaultLayout',
+    component: DefaultLayout,
+  },
+  {
+    path: '/ECommerce',
+    title: 'ECommerce',
+    component: ECommerce,
+  },
   {
     path: '/calendar',
     title: 'Calender',
