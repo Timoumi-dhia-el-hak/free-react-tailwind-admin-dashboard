@@ -11,9 +11,15 @@ const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 const ECommerce= lazy(() => import('../pages/Dashboard/ECommerce'));
 const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
+const Dashboard = lazy(() => import('../Dashboard'));
 
 
 const coreRoutes = [
+  {
+    path: '/Dashboard',
+    title: 'Dashboard',
+    component:Dashboard,
+  },
     {
     path: '/DefaultLayout',
     title: 'DefaultLayout',

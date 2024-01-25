@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-
+import Dashboard from './Dashboard';
 import ECommerce from './pages/Dashboard/ECommerce';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
@@ -28,11 +28,12 @@ function App() {
         reverseOrder={false}
         containerClassName="overflow-auto"
       />
-   
-      <Routes>
+         <Routes>
+        
         <Route path="/auth/signin" element={<SignIn />} />
         <Route path="/auth/signup" element={<SignUp />} />
-        <Route element={<DefaultLayout />}> // DefaultLayout 
+        <Route index element={<SignIn />} /> 
+          <Route element={<DefaultLayout />}>
           <Route index element={<ECommerce />} /> 
           {routes.map((routes, index) => {
             const { path, component: Component } = routes;
@@ -50,6 +51,7 @@ function App() {
           })}
         </Route>
       </Routes> 
+      
     </>
   );
 }
