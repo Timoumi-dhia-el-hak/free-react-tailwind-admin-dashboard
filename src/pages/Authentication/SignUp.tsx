@@ -1,8 +1,28 @@
 import { Link } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 const SignUp = () => {
+  const SignupSchema = Yup.object().shape({
+
+    fullName: Yup.string()
+ 
+      .min(5, 'Too Short!')
+ 
+      .max(50, 'Too Long!')
+ 
+      .required('Required'),
+ 
+      email: Yup.string().email('Invalid email').required('Required'),
+    pass: Yup.string()    
+  .min(6, 'Password must be 6 characters long')
+  .matches(/[A-Z]/, 'Password requires an uppercase letter'),
+  confirm: Yup.string().oneOf([Yup.ref('pass'), null], 'Must match "password" field value'),
+  
+ 
+  });
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -149,14 +169,40 @@ const SignUp = () => {
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign Up to TailAdmin
               </h2>
+              <Formik
 
-              <form>
+initialValues={{
+
+  fullName: '',
+
+  lastName: '',
+
+  email: '',
+  pass:'',
+  confirm:''
+
+}}
+
+validationSchema={SignupSchema}
+
+onSubmit={values => {
+
+  // same shape as initial values
+
+  console.log(values);
+
+}}
+
+>
+
+{({ errors, touched }) => (
+              <Form>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Name
                   </label>
                   <div className="relative">
-                    <input
+                    <Field name="fullName"
                       type="text"
                       placeholder="Enter your full name"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -183,7 +229,11 @@ const SignUp = () => {
                         </g>
                       </svg>
                     </span>
+                    
                   </div>
+                  <p className="mb-3 font-semibold text-[#B45454]">
+                                {errors.fullName && touched.fullName ? <div>{errors.fullName}</div> : null}
+                    </p>
                 </div>
 
                 <div className="mb-4">
@@ -191,7 +241,7 @@ const SignUp = () => {
                     Email
                   </label>
                   <div className="relative">
-                    <input
+                    <Field name="email" 
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -214,6 +264,9 @@ const SignUp = () => {
                         </g>
                       </svg>
                     </span>
+                    <p className="mb-3 font-semibold text-[#B45454]">
+                      {errors.email && touched.email ? <div>{errors.email}</div> : null}
+                    </p>
                   </div>
                 </div>
 
@@ -222,8 +275,7 @@ const SignUp = () => {
                     Password
                   </label>
                   <div className="relative">
-                    <input
-                      type="password"
+                    <Field type="password" name="pass"
                       placeholder="Enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
@@ -249,6 +301,9 @@ const SignUp = () => {
                         </g>
                       </svg>
                     </span>
+                    <p className="mb-3 font-semibold text-[#B45454]">
+                    {errors.pass && <p>{errors.pass}</p>}
+                    </p>
                   </div>
                 </div>
 
@@ -257,9 +312,8 @@ const SignUp = () => {
                     Re-type Password
                   </label>
                   <div className="relative">
-                    <input
-                      type="password"
-                      placeholder="Re-enter your password"
+                    <Field type="password" name="confirm" 
+                     placeholder="Re-enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -284,6 +338,9 @@ const SignUp = () => {
                         </g>
                       </svg>
                     </span>
+                    <p className="mb-3 font-semibold text-[#B45454]">
+                    {errors.confirm && <p>{errors.confirm}</p>}
+                    </p>
                   </div>
                 </div>
 
@@ -340,7 +397,11 @@ const SignUp = () => {
                     </Link>
                   </p>
                 </div>
-              </form>
+                </Form>
+
+)}
+
+</Formik>
             </div>
           </div>
         </div>
