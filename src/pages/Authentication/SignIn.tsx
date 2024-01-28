@@ -11,9 +11,10 @@ const SignIn = () => {
   const handleClick = () => {
       navigate("/ECommerce");
      }
-     
+     const Inputclass='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary';
+     const AlertInputclass='w-full rounded-lg border border-[#F5C5BB] bg-transparent py-4 pl-6 pr-10 outline-none focus:border-[#F5C5BB] focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-[#F5C5BB]';          
      const SignupSchema = Yup.object().shape({
-
+     
       firstName: Yup.string()
    
         .min(2, 'Too Short!')
@@ -216,8 +217,7 @@ const SignIn = () => {
                     type="email"  
                      id="email"
                       placeholder="Enter your email"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                
+                      className= {errors.email && touched.email ? AlertInputclass: Inputclass}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -252,8 +252,7 @@ const SignIn = () => {
                   <div className="relative">
                     <Field type="password" name="pass"
                      placeholder="6+ Characters, 1 Capital letter"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    />
+                      className= {errors.pass && touched.pass ? AlertInputclass: Inputclass}/>
 
                     <span className="absolute right-4 top-4">
                       <svg

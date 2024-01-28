@@ -5,6 +5,8 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 const SignUp = () => {
+  const Inputclass='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary';
+  const AlertInputclass='w-full rounded-lg border border-[#F5C5BB] bg-transparent py-4 pl-6 pr-10 outline-none focus:border-[#F5C5BB] focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-[#F5C5BB]';          
   const SignupSchema = Yup.object().shape({
 
     fullName: Yup.string()
@@ -205,8 +207,7 @@ onSubmit={values => {
                     <Field name="fullName"
                       type="text"
                       placeholder="Enter your full name"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    />
+                      className= {errors.fullName && touched.fullName ? AlertInputclass: Inputclass}/>
 
                     <span className="absolute right-4 top-4">
                       <svg
@@ -244,8 +245,7 @@ onSubmit={values => {
                     <Field name="email" 
                       type="email"
                       placeholder="Enter your email"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    />
+                      className= {errors.email && touched.email ? AlertInputclass: Inputclass}/>
 
                     <span className="absolute right-4 top-4">
                       <svg
@@ -277,8 +277,7 @@ onSubmit={values => {
                   <div className="relative">
                     <Field type="password" name="pass"
                       placeholder="Enter your password"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    />
+                      className= {errors.pass && touched.pass ? AlertInputclass: Inputclass}/>
 
                     <span className="absolute right-4 top-4">
                       <svg
@@ -314,8 +313,7 @@ onSubmit={values => {
                   <div className="relative">
                     <Field type="password" name="confirm" 
                      placeholder="Re-enter your password"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    />
+                     className= {errors.confirm && touched.confirm ? AlertInputclass: Inputclass}/>
 
                     <span className="absolute right-4 top-4">
                       <svg
