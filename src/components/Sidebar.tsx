@@ -4,6 +4,7 @@ import Logo from '../images/logo/logo.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import { FaRegUser } from "react-icons/fa";
 import { FaRegFile } from "react-icons/fa6";
+import { FaReact } from "react-icons/fa";
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
@@ -65,6 +66,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       <div className={`relative flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 ${ !sideopen ? 'w-30' : ' w-72'} `}>
         <NavLink to="/">
           <img src={Logo} alt="Logo"className={`${ !sideopen && "scale-0"}`} />
+          <span className='text-2xl block float-left'> 
+          <FaReact alt="Logo"className={`${ sideopen && "scale-0"}`}size={40}/></span>
         </NavLink>
 
         <button
@@ -372,7 +375,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Settings --> */}
             </ul>
           </div>
-          <div>
+               
+          <div className={`${ !sideopen && "scale-0"}`}>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
               MENU
             </h3>
@@ -722,7 +726,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           </div>
 
           {/* <!-- Others Group --> */}
-          <div>
+          <div className={`${ !sideopen && "scale-0"}`}>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
               OTHERS
             </h3>
