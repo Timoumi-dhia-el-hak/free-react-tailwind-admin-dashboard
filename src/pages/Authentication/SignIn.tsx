@@ -1,35 +1,19 @@
 import {Link,useNavigate} from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
-
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const SignIn = () => {
     const navigate = useNavigate();
-  const handleClick = () => {
-      navigate("/");
-     }
+    const handleClick = () => {
+     // navigate("/");
+     } 
+    
      const Inputclass='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary';
      const AlertInputclass='w-full rounded-lg border border-[#F5C5BB] bg-transparent py-4 pl-6 pr-10 outline-none focus:border-[#F5C5BB] focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-[#F5C5BB]';          
      const SignupSchema = Yup.object().shape({
-     
-      firstName: Yup.string()
-   
-        .min(2, 'Too Short!')
-   
-        .max(50, 'Too Long!')
-   
-        .required('Required'),
-   
-      lastName: Yup.string()
-   
-        .min(2, 'Too Short!')
-   
-        .max(50, 'Too Long!')
-   
-        .required('Required'),
-   
       email: Yup.string().email('Invalid email').required('Required'),
       pass: Yup.string()    
     .min(6, 'Password must be 6 characters long')
@@ -37,7 +21,18 @@ const SignIn = () => {
     
    
     });
-
+    const onSubmit = (values: any) => {
+            
+      axios.get('http://localhost:8000/users')
+        .then(result => {
+          result.data.map( (user: { email: any; pass: any; }) => {
+          user.email===values.email&&user.pass===values.pass?navigate("/"):console.log("login fail")
+          
+          })
+                  
+        })
+        .catch((err) => console.log(err));
+    };
    return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -191,21 +186,12 @@ const SignIn = () => {
                  email: '',
                  pass:'',
        }}
-
        validationSchema={SignupSchema}
-
-       onSubmit={values => {
-
-         // same shape as initial values
-
-         console.log(values);
-
-       }}
-
+       onSubmit={onSubmit}
      >
 
-       {({ errors, touched }) => (
-              <Form>
+       {({  errors,  touched,  handleChange}) => (
+                      <Form>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
@@ -216,6 +202,7 @@ const SignIn = () => {
                     type="email"  
                      id="email"
                       placeholder="Enter your email"
+                      onChange={handleChange}
                       className= {errors.email && touched.email ? AlertInputclass: Inputclass}
                     />
 
@@ -249,8 +236,11 @@ const SignIn = () => {
                  Type Password
                   </label>
                   <div className="relative">
-                    <Field type="password" name="pass"
+                    <Field type="password"
+                     name="pass"
+                     id="pass"
                      placeholder="6+ Characters, 1 Capital letter"
+                     onChange={handleChange}
                       className= {errors.pass && touched.pass ? AlertInputclass: Inputclass}/>
 
                     <span className="absolute right-4 top-4">
