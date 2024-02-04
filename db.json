@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": "97a8",
+      "fullName": "jhon duo",
+      "email": "jhon@gmail.com",
+      "pass": "Azerty",
+      "confirm": "Azerty"
+    },
+    {
+      "id": "fcde",
+      "fullName": "jane smith",
+      "email": "jane@yopmail.com",
+      "pass": "Azerty",
+      "confirm": "Azerty"
+    }
+  ]
+}

@@ -1,15 +1,14 @@
-import { Link ,useNavigate} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
-import { useForm } from 'react-hook-form';
+
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 const SignIn = () => {
-  const navigate = useNavigate();
-  
+    const navigate = useNavigate();
   const handleClick = () => {
-      navigate("/ECommerce");
+      navigate("/");
      }
      const Inputclass='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary';
      const AlertInputclass='w-full rounded-lg border border-[#F5C5BB] bg-transparent py-4 pl-6 pr-10 outline-none focus:border-[#F5C5BB] focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-[#F5C5BB]';          

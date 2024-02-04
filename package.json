@@ -16,8 +16,10 @@
   "dependencies": {
     "@react-icons/all-files": "^4.1.0",
     "apexcharts": "^3.41.0",
+    "axios": "^1.6.7",
     "formik": "^2.4.5",
     "headlessui": "^0.0.0",
+    "json-server": "^1.0.0-alpha.23",
     "jsvectormap": "^1.5.3",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",

@@ -464,7 +464,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              eCommerce
+                              Ecommerce
                             </NavLink>
                           </li>
                         </ul>
