@@ -1,6 +1,5 @@
 import { lazy } from 'react';
-const Otherssettingsdomain = lazy(() => import( '../components/Otherssettingsdomain​'));
-const Keyvaluepage = lazy(() => import( '../components/Keyvaluepage'));
+
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
 const FormElements = lazy(() => import('../pages/Form/FormElements'));
@@ -13,37 +12,10 @@ const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 const ECommerce= lazy(() => import('../pages/Dashboard/ECommerce'));
 const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
 const Dashboard = lazy(() => import('../Dashboard'));
-const Users = lazy(() => import('../pages/Users'));
-const Files = lazy(() => import('../pages/Files'));
-const GeneralSetting = lazy(() => import('../components/GeneralSetting'));
 
 
 const coreRoutes = [
-  {
-    path: '/Keyvaluepage',
-    title: 'Keyvaluepage',
-    component:Keyvaluepage,
-  },
-  {
-    path: '/Otherssettingsdomain',
-    title: 'Otherssettingsdomain',
-    component:Otherssettingsdomain,
-  },
-  {
-    path: '/GeneralSetting',
-    title: 'GeneralSetting',
-    component:GeneralSetting,
-  },
-  {
-    path: '/users',
-    title: 'users',
-    component:Users,
-  },
-  {
-    path: '/files',
-    title: 'files',
-    component:Files,
-  },
+  
   {
     path: '/Dashboard',
     title: 'Dashboard',

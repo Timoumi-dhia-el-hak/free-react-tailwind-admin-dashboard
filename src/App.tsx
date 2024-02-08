@@ -8,10 +8,26 @@ import Loader from './common/Loader';
 import routes from './routes';
 import DeffSignIn from './pages/Authentication/DeffSignIn';
 import DeffSignUp from './pages/Authentication/DeffSignUp';
+import PrivateRoute from './routes/PrivetRoute';
+import Users from'./pages/Users';
+import Files from'./pages/Files';
+import GeneralSetting from'./components/GeneralSetting';
+import Otherssettingsdomain from'./components/Otherssettingsdomain​';
+import Keyvaluepage from'./components/Keyvaluepage';
 
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
-
 function App() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const isauth= localStorage.getItem("login")
+  console.log('isauth',isauth)
+    useEffect(() => {
+      
+      if (isauth) {
+        setAuthenticated(true);
+      }
+    }, []);
+  console.log('isauthenticated',authenticated)
+
   const [loading, setLoading] = useState<boolean>(true);
   
   useEffect(() => {
@@ -32,9 +48,15 @@ function App() {
         
         <Route path="/auth/signin" element={<SignIn />} />
         <Route path="/auth/signup" element={<SignUp />} />
-        <Route path="/auth/Deffsignin" element={<DeffSignIn />} />
-        <Route path="/auth/Deffsignup" element={<DeffSignUp />} />
-       
+        <Route element={<PrivateRoute isAuthenticated={authenticated } component={undefined} />}>
+        <Route element={<DefaultLayout />}>
+        <Route path="/Keyvaluepage" element={<Keyvaluepage />} />
+        <Route path="/Otherssettingsdomain" element={<Otherssettingsdomain />} />
+        <Route path="/GeneralSetting" element={<GeneralSetting />} />
+        <Route path="/users" element={<Users/>} />
+        <Route path="/files" element={<Files />} />
+        </Route>
+        </Route>
         <Route element={<DefaultLayout />}>
           <Route index element={<ECommerce />} />
               {routes.map((routes, index) => {
@@ -51,6 +73,7 @@ function App() {
               />
             );
           })}
+        
         </Route>
         </Routes> 
       

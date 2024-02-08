@@ -36,6 +36,24 @@ const SignUp = () => {
   };
   const navigate = useNavigate();
   const onSubmit = (values: any) => {
+    const email=values.email
+    const password=values.pass
+    const fullName=values.fullName
+    axios
+      .post("http://localhost:5000/api/auth/register", {
+        email,
+        password,
+        fullName
+      })
+      .then((response) => {
+        console.log("signup", response);
+        localStorage.setItem( 'token',  JSON.stringify({ token: response.data.access_token }), );
+        navigate("/auth/signin");
+      })
+     
+      .catch((err) => console.log(err));
+  };
+  /*const onSubmit = (values: any) => {
     axios
       .post('http://localhost:8000/users', values)
       .then((result) => {
@@ -43,7 +61,7 @@ const SignUp = () => {
         navigate('/auth/signin')
       })
       .catch((err) => console.log(err));
-  };
+  };*/
  
   return (
     <>

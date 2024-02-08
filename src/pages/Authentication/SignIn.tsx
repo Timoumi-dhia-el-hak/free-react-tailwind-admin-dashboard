@@ -21,7 +21,26 @@ const SignIn = () => {
     
    
     });
+   
     const onSubmit = (values: any) => {
+    const email = values.email;
+    const password = values.pass;
+
+    axios
+      .post('http://localhost:5000/api/auth/login', { email, password })
+      .then((response) => {
+        console.log('login', response);
+
+        localStorage.setItem( 'token',  JSON.stringify({ token: response.data.access_token }), );
+
+        localStorage.setItem('login', JSON.stringify({ userLogin: true }));
+
+        navigate('/');
+      })
+      .catch((err) => console.log(err));
+  };
+
+   /* const onSubmit = (values: any) => {
             
       axios.get('http://localhost:8000/users')
         .then(result => {
@@ -32,7 +51,7 @@ const SignIn = () => {
                   
         })
         .catch((err) => console.log(err));
-    };
+    };*/
    return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -202,7 +221,7 @@ const SignIn = () => {
                     type="email"  
                      id="email"
                       placeholder="Enter your email"
-                      onChange={handleChange}
+                       onChange={handleChange}
                       className= {errors.email && touched.email ? AlertInputclass: Inputclass}
                     />
 
