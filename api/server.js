@@ -12,7 +12,7 @@ server.use(jsonServer.defaults());
 
 const SECRET_KEY = "7158697458";
 
-const expiresIn = "1h";
+const expiresIn = 60; //test 60 sec token
 
 function createToken(payload) {
   return jwt.sign(payload, SECRET_KEY, { expiresIn });
