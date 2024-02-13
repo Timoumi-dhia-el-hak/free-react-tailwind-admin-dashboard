@@ -65,7 +65,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className={`relative flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 ${ !sideopen ? 'w-30' : ' w-72'} `}>
         <NavLink to="/">
-          <img src={Logo} alt="Logo"className={`${ !sideopen && "scale-0"}`} />
+          <span className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 text-4xl text-bodydark1 duration-300 ease-in-out dark:hover:bg-meta-4 ${ !sideopen && "scale-0"} `}>ProPanel</span>
           <span className='text-2xl block float-left'> 
           <FaReact alt="Logo"className={`${ sideopen && "scale-0"}`}size={40}/></span>
         </NavLink>
