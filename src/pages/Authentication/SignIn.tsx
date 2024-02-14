@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
-import Logo from '../../images/logo/logo.svg';
+import Logo from '../../images/logo/windows-azure.svg';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -344,13 +344,12 @@ const SignIn = () => {
                       </span>
                       Sign in with Google
                     </button>
-                    <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50 mt-2">
+                    <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50 mt-2">
                       <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48">
-                          <path fill="#ff5722" d="M6 6H22V22H6z" transform="rotate(-180 14 14)"></path><path fill="#4caf50" d="M26 6H42V22H26z" transform="rotate(-180 34 14)"></path><path fill="#ffc107" d="M26 26H42V42H26z" transform="rotate(-180 34 34)"></path><path fill="#03a9f4" d="M6 26H22V42H6z" transform="rotate(-180 14 34)"></path>
-                        </svg>
+                      <img  src={Logo}  width="20" height="20"alt="Logo" />
+                        
                       </span>
-                      Sign in with Microsoft
+                      Log in with Azure AD
                     </button>
                     <div className="mt-6 text-center">
                       <p>
