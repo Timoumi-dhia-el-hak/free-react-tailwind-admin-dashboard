@@ -6,17 +6,17 @@ import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Loader from './common/Loader';
 import routes from './routes';
-import DeffSignIn from './pages/Authentication/DeffSignIn';
-import DeffSignUp from './pages/Authentication/DeffSignUp';
 import PrivateRoute from './routes/PrivetRoute';
 import Users from'./pages/Users';
 import Files from'./pages/Files';
 import GeneralSetting from'./components/GeneralSetting';
 import Otherssettingsdomain from'./components/Otherssettingsdomain​';
 import Keyvaluepage from'./components/Keyvaluepage';
-
+import { useMsal, useMsalAuthentication } from '@azure/msal-react';
+import { InteractionType } from '@azure/msal-browser';
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 function App() {
+  useMsalAuthentication(InteractionType.Redirect);
   const [authenticated, setAuthenticated] = useState(false);
   const isauth= localStorage.getItem("login")
   console.log('isauth',isauth)

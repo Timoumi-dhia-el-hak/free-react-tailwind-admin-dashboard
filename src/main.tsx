@@ -4,10 +4,16 @@ import { Routes,Route, BrowserRouter} from 'react-router-dom';
 import App from './App';
 import './index.css';
 import './satoshi.css';
+import { PublicClientApplication } from '@azure/msal-browser';
+import { msalConfig } from './auth/authConfig';
+import { MsalProvider } from '@azure/msal-react';
+const msalInstance = new PublicClientApplication(msalConfig);
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-            <  App />
+    <MsalProvider instance={msalInstance}>
+        <App />
+    </MsalProvider>
     </BrowserRouter>
     
   </React.StrictMode>

@@ -1,1 +1,21 @@
-{"users":[{"id":2,"email":"test@gmail.com","password":"Azerty"},{"id":3,"fullName":"new one","email":"new@email.com","password":"Azerty"},{"id":4,"fullName":"hellowrd","email":"helloword@g.com","password":"QSDFGHJ"}]}
+{
+    "users": [
+        {
+            "id": 2,
+            "email": "test@gmail.com",
+            "password": "Azerty"
+        },
+        {
+            "id": 3,
+            "fullName": "new one",
+            "email": "new@email.com",
+            "password": "Azerty"
+        },
+        {
+            "id": 4,
+            "fullName": "hellowrd",
+            "email": "helloword@g.com",
+            "password": "QSDFGHJ"
+        }
+    ]
+}

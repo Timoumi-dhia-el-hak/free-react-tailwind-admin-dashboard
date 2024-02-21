@@ -1,10 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
-import Logo from '../../images/logo/windows-azure.svg';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-
+import SignInButtons from './SignInButtons';
 const SignIn = () => {
   const navigate = useNavigate();
   const handleClick = () => {
@@ -344,13 +343,8 @@ const SignIn = () => {
                       </span>
                       Sign in with Google
                     </button>
-                    <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50 mt-2">
-                      <span>
-                      <img  src={Logo}  width="20" height="20"alt="Logo" />
-                        
-                      </span>
-                      Log in with Azure AD
-                    </button>
+                   
+                    <SignInButtons/>
                     <div className="mt-6 text-center">
                       <p>
                         Don’t have any account?{' '}
