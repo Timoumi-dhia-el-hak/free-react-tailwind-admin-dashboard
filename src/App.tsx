@@ -19,19 +19,17 @@ function App() {
   useMsalAuthentication(InteractionType.Redirect);
   const [authenticated, setAuthenticated] = useState(false);
   const isauth= localStorage.getItem("login")
-  console.log('isauth',isauth)
-    useEffect(() => {
-      
-      if (isauth) {
-        setAuthenticated(true);
-      }
-    }, []);
   console.log('isauthenticated',authenticated)
 
   const [loading, setLoading] = useState<boolean>(true);
   
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
+    if (isauth) {
+      setAuthenticated(true);
+      console.log('isauth',isauth)
+      console.log('isauthenticated',authenticated)
+    }
   }, []);
 
   return loading ? (

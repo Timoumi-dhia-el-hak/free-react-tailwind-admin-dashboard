@@ -38,6 +38,7 @@ const DropdownUser = () => {
 
   const handleLogout = () => {
     //setAuthenticated(false);
+    sessionStorage.clear();
     localStorage.removeItem('token');
     localStorage.removeItem('login');
     navigate('/auth/signin');

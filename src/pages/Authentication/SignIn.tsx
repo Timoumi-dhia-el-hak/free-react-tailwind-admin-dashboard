@@ -35,7 +35,7 @@ const SignIn = () => {
           JSON.stringify({ token: response.data.access_token }),
         );
 
-        localStorage.setItem('login', JSON.stringify({ userLogin: true }));
+        localStorage.setItem('login', 'true');
 
         navigate('/');
       })
