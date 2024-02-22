@@ -1,19 +1,18 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../auth/authConfig";
 import Logo from '../../images/logo/windows-azure.svg';
  const SignInButtons = () => {
     const { instance } = useMsal();
-
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-
+    const [msalInstance, onMsalInstanceChange] = useState();
     const handleLogin =  () => {
-        setAnchorEl(null);
+      setAnchorEl(null);
                instance.loginPopup(loginRequest);
        
     }
-
+    
     return (
         <div>
              <button onClick={handleLogin} className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50 mt-2">
@@ -23,8 +22,7 @@ import Logo from '../../images/logo/windows-azure.svg';
                       </span>
                       Log in with Azure AD
                     </button>
-            
-           
+                              
         </div>
     )
 };
