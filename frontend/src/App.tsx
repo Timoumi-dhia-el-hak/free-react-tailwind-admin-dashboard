@@ -15,6 +15,8 @@ import Keyvaluepage from'./components/Keyvaluepage';
 import { useMsal, useMsalAuthentication } from '@azure/msal-react';
 import { InteractionType } from '@azure/msal-browser';
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
+
+
 function App() {
   useMsalAuthentication(InteractionType.Redirect);
   const [authenticated, setAuthenticated] = useState(false);
