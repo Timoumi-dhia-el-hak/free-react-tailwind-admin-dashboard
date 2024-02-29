@@ -2,13 +2,25 @@ import { Link, useNavigate } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import { toast } from 'react-toastify';
 import SignInButtons from './SignInButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLoginMutation } from '../../redux/slices/usersApiSlice';
+import { setCredentials } from '../../redux/slices/authSlice';
+import { useEffect } from 'react';
+import Loader from '../../common/Loader';
+
 const SignIn = () => {
+  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
-  const handleClick = () => {
-    // navigate("/");
-  };
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [navigate, userInfo]);
 
   const Inputclass =
     'w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary';
@@ -20,29 +32,19 @@ const SignIn = () => {
       .min(6, 'Password must be 6 characters long')
       .matches(/[A-Z]/, 'Password requires an uppercase letter'),
   });
-
-   /* const onSubmit = (values: any) => {
+  const onSubmit = async (values: any) => {
     const email = values.email;
     const password = values.pass;
 
-  axios
-      .post('https://json-server-wi52.onrender.com/api/auth/login', { email, password })
-      .then((response) => {
-        console.log('login', response);
-
-        localStorage.setItem(
-          'token',
-          JSON.stringify({ token: response.data.access_token }),
-        );
-
-        localStorage.setItem('login', 'true');
-
-        navigate('/');
-      })
-      .catch((err) => console.log(err));
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate('/');
+    } catch (err) {
+      toast.error(err.data.message);
+    }
   };
-
- const onSubmit = ( ) => {
+  /*const onSubmit = ( ) => {
             
       axios.get('/')
         /*.then(result => {
@@ -61,9 +63,7 @@ const SignIn = () => {
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
-              <Link className="mb-5.5 inline-block" to="/">
-                
-              </Link>
+              <Link className="mb-5.5 inline-block" to="/"></Link>
 
               <p className="2xl:px-20">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -207,7 +207,7 @@ const SignIn = () => {
                   pass: '',
                 }}
                 validationSchema={SignupSchema}
-               // onSubmit={onSubmit}
+                onSubmit={onSubmit}
               >
                 {({ errors, touched, handleChange }) => (
                   <Form>
@@ -301,7 +301,7 @@ const SignIn = () => {
 
                     <div className="mb-5">
                       <Field
-                        onClick={handleClick}
+                        onClick={onSubmit}
                         type="submit"
                         value="Sign In"
                         className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
@@ -344,8 +344,8 @@ const SignIn = () => {
                       </span>
                       Sign in with Google
                     </button>
-                   
-                    <SignInButtons/>
+
+                    <SignInButtons />
                     <div className="mt-6 text-center">
                       <p>
                         Don’t have any account?{' '}
@@ -355,8 +355,10 @@ const SignIn = () => {
                       </p>
                     </div>
                   </Form>
+                 
                 )}
               </Formik>
+              {isLoading && <Loader />}
             </div>
           </div>
         </div>
