@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import UserOne from '../images/user/user-01.png';
-
+import { LinkContainer } from 'react-router-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 const DropdownUser = () => {
+
+  const { userInfo } = useSelector((state) => state.auth);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -53,10 +56,13 @@ const DropdownUser = () => {
         to="#"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
-          </span>
-          <span className="block text-xs">UX Designer</span>
+          
+            {userInfo?(<span className="block text-sm font-medium text-black dark:text-white"> {userInfo.name} </span>):
+            (<span className="block text-sm font-medium text-black dark:text-white">Thomas Anree  </span>)}
+            {userInfo?( <span className="block text-xs">{userInfo.email}</span>):
+            ( <span className="block text-xs">UX Designer</span>)}
+        
+         
         </span>
 
         <span className="h-12 w-12 rounded-full">
