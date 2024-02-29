@@ -1,10 +1,14 @@
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
-import toast, { Toaster } from 'react-hot-toast';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRegisterMutation } from '../../redux/slices/usersApiSlice';
+import { setCredentials } from '../../redux/slices/authSlice';
+import { toast } from 'react-toastify';
+import Loader from '../../common/Loader';
 
 const SignUp = () => {
   const Inputclass =
@@ -55,34 +59,41 @@ const SignUp = () => {
      
       .catch((err) => console.log(err));
   };*/
-  const onSubmit = async(values: any) => {
-    const email=values.email
-    const password=values.pass
-    const name=values.fullName
-    try{
-      await axios
-      .post('http://localhost:8000/auth/signup', {name, email, password})//http://localhost:8000/ /auth/signup
-      .then((res) => {
-        console.log("signup", res);
-        toast.success('Register Success');
-        navigate('/auth/signin')
-      })
-    }  catch(err) 
-     {
-      toast.error('Register failed. Please try again.')
-      console.log("create err",err)
-    };
+  const dispatch = useDispatch();
+  const [register, { isLoading }] = useRegisterMutation();
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [navigate, userInfo]);
+
+  const onSubmit = async (values: any) => {
+    const email = values.email;
+    const password = values.pass;
+    const name = values.fullName;
+    const confirm = values.confirm;
+    if (password !== confirm) {
+      toast.error('Passwords do not match');
+    } else {
+      try {
+        const res = await register({ name, email, password }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate('/auth/signin');
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
   };
- 
+
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
-              <Link className="mb-5.5 inline-block" to="/">
-                
-              </Link>
+              <Link className="mb-5.5 inline-block" to="/"></Link>
               <p className="2xl:px-20">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit
                 suspendisse.
@@ -454,6 +465,7 @@ const SignUp = () => {
                   </Form>
                 )}
               </Formik>
+              {isLoading && <Loader />}
             </div>
           </div>
         </div>
