@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserOne from '../images/user/user-01.png';
-import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLogoutMutation } from '../redux/slices/usersApiSlice';
+import { logout } from '../redux/slices/authSlice';
 const DropdownUser = () => {
-
-  const { userInfo } = useSelector((state) => state.auth);
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const { userInfo } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
@@ -39,12 +38,25 @@ const DropdownUser = () => {
   });
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  /*const handleLogout = () => {
     //setAuthenticated(false);
     sessionStorage.clear();
     localStorage.removeItem('token');
     localStorage.removeItem('login');
     navigate('/auth/signin');
+  };*/
+  
+
+  const [logoutApiCall] = useLogoutMutation();
+
+  const handleLogout = async () => {
+    try {
+      await  logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate('/auth/signin');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -56,13 +68,21 @@ const DropdownUser = () => {
         to="#"
       >
         <span className="hidden text-right lg:block">
-          
-            {userInfo?(<span className="block text-sm font-medium text-black dark:text-white"> {userInfo.name} </span>):
-            (<span className="block text-sm font-medium text-black dark:text-white">Thomas Anree  </span>)}
-            {userInfo?( <span className="block text-xs">{userInfo.email}</span>):
-            ( <span className="block text-xs">UX Designer</span>)}
-        
-         
+          {userInfo ? (
+            <span className="block text-sm font-medium text-black dark:text-white">
+              {' '}
+              {userInfo.name}{' '}
+            </span>
+          ) : (
+            <span className="block text-sm font-medium text-black dark:text-white">
+              Thomas Anree{' '}
+            </span>
+          )}
+          {userInfo ? (
+            <span className="block text-xs">{userInfo.email}</span>
+          ) : (
+            <span className="block text-xs">UX Designer</span>
+          )}
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -170,8 +190,10 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-        onClick={handleLogout}>
+        <button
+          className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogout}
+        >
           <svg
             className="fill-current"
             width="22"
